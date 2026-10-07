@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="dark light">
+<title>Page not found</title>
+<!--
+  The not-found page for all of victordeglon.github.io. GitHub Pages serves a
+  custom 404 only from the site root, so this is also what an unknown path
+  under /FEROX/ gets: FEROX moved to https://feroxfitness.web.app, and its old
+  folder here is a small bridge that hands a guest's log over. Any /FEROX/
+  path that is not one of the bridge's pages is sent to the bridge's front
+  door, which then offers the move or forwards to the new address. Everything
+  else gets a plain "not found".
+
+  No front matter on purpose: Jekyll copies the file verbatim, so the site's
+  head-custom include never reaches it. No external requests.
+-->
+<script>
+(function () {
+  var path = location.pathname;
+  // Anything in FEROX's old folder (any case) — except the bridge's own front
+  // door, so a missing bridge can never send this page round in a loop.
+  if (/^\/ferox(\/|$)/i.test(path) && !/^\/FEROX\/(index\.html)?$/.test(path)) {
+    document.documentElement.setAttribute('data-state', 'redirect');
+    location.replace('/FEROX/' + location.search + location.hash);
+  }
+})();
+</script>
+<style>
+:root {
+  --bg: #09090B; --card: #131316; --line: #25252B; --line-hi: #36363E;
+  --text: #F4F4F6; --text-2: #A6A6B0; --ember: #FF3D2E;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #F5F5F7; --card: #FFFFFF; --line: #E4E4E9; --line-hi: #D4D4DC;
+    --text: #0B0B0F; --text-2: #4A4A55; --ember: #C0261B;
+    color-scheme: light;
+  }
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; min-height: 100vh; min-height: 100dvh;
+  display: grid; place-items: center; padding: 24px 16px;
+  background: var(--bg); color: var(--text);
+  font: 400 1rem/1.55 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+/* While it forwards to the FEROX bridge, show nothing. */
+[data-state="redirect"] main { visibility: hidden; }
+main {
+  width: min(100%, 420px); padding: 32px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 22px;
+}
+h1 { margin: 0 0 8px; font-size: 1.6rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
+p { margin: 0; color: var(--text-2); }
+a {
+  display: inline-block; margin-top: 20px; color: var(--text); font-weight: 600;
+  text-decoration: underline; text-decoration-color: var(--line-hi); text-underline-offset: 3px;
+}
+a:hover { text-decoration-color: currentColor; }
+a:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Page not found</h1>
+  <p>There is nothing at this address.</p>
+  <a href="/">Go to the home page</a>
+</main>
+</body>
+</html>
