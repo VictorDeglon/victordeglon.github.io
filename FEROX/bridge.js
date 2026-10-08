@@ -55,11 +55,17 @@ const AGAIN = location.hash === '#move';
 
 /* ------------------------------------------------------------------ target */
 
-/** The same page on the new address, query and hash included (u.html?h=…). */
+/**
+ * The same page on the new address, query and hash included (u?h=…). The new
+ * address serves clean URLs (/workouts, not /workouts.html) and Today is
+ * /home there, not dashboard. The local test bench serves plain files, so
+ * it keeps the .html names.
+ */
 function targetURL() {
   const last = location.pathname.split('/').pop() || 'index.html';
   const name = last.replace(/\.html$/i, '');
-  const path = !PAGES.has(name) || name === 'index' ? '/' : `/${name}.html`;
+  const page = name === 'dashboard' ? 'home' : name;
+  const path = !PAGES.has(name) || name === 'index' ? '/' : DEV ? `/${page}.html` : `/${page}`;
   return NEW + path + location.search + (AGAIN ? '' : location.hash);
 }
 const TARGET = targetURL();
